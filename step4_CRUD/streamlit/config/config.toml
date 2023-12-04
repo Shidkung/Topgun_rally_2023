@@ -1,0 +1,10 @@
+[server]
+runOnSave=true
+headless=true
+fileWatcherType="poll"
+[theme]
+primaryColor="#000000"
+backgroundColor="#8bb3ef"
+secondaryBackgroundColor="#2b5fc9"
+textColor="#ffffff"
+font="monospace"

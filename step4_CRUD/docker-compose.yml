@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  web:
+    image: myapi
+    container_name: fastapi
+    env_file:
+      - .env
+    volumes:
+      - ./fastapi/app:/code/app
+    ports:
+      - "80:80"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    env_file:
+      - .env
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - "MONGO_INITDB_DATABASE=${MONGO_DB}"
+      - "MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}"
+      - "MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}"
+  streamlit:
+    image: mystreamlit
+    container_name: streamlits
+    volumes:
+      - ./streamlit/app:/code
+      - ./streamlit/config:/root/.streamlit
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mongodb
